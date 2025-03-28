@@ -6,16 +6,23 @@
     <title>URL Shortener</title>
 </head>
 <body>
-    <h1>URL Shortener</h1>
+    <h1>Ray URL</h1>
 
-    <form action="/" method="POST">
-        <input type="text" name="url" placeholder="Enter URL" required>
-        <button type="submit">Shorten</button>
+    
+    <form method="POST">
+    <label for="url">Enter your URL:</label>
+    <input type="url" name="url" required>
+
+    <label for="custom_alias">Custom Short URL (Optional):</label>
+    <input type="text" name="custom_alias" placeholder="RayURL">
+
+    <button type="submit">Shorten</button>
     </form>
 
-    {% if short_url %}
-        <p>Shortened URL: <a href="{{ short_url }}">{{ short_url }}</a></p>
-    {% endif %}
+{% if short_url %}
+    <p>Your shortened link: <a href="{{ short_url }}">Click Here</a></p>
+{% endif %}
+
 </body>
 </html>
 
