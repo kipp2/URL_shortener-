@@ -41,6 +41,32 @@ def redirect_url(short_id):
         return redirect(url_entry.original_url)
     return "Not Found", 404
 
+@app.route('/shorten', methods=['POST'])
+def shorten_url():
+    data = request.get_json()
+    original_url = data.get('url')
+    custom_alias = data.get('alias')
+
+    if not validators.url(original_url):
+        return jsonify({"error": "Invalid URL"}), 400
+
+    # Check if the custom alias is already taken
+    if custom_alias:
+        existing_url = URL.query.filter_by(short_id=custom_alias).first()
+        if existing_url:
+            return jsonify({"error": "Custom alias already taken"}), 400
+        short_id = custom_alias  # Use user-provided alias
+    else:
+        short_id = URL.generate_unique_short_id()  # Generate a random short ID
+
+    # Create and store the new short URL
+    new_url = URL(original_url=original_url, short_id=short_id)
+    db.session.add(new_url)
+    db.session.commit()
+
+    return jsonify({"short_url": request.host_url + new_url.short_id})
+
+
 if __name__ == '__main__':
     app.run(debug=True)
 
