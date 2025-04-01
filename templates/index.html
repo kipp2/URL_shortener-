@@ -3,26 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Shortener</title>
+    <title>Ray URL - Shorten Your Links</title>
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <h1>Ray URL</h1>
-
+    <div class="container">
+        <h1>Ray URL - Shorten Your Links</h1>
+        <p class="subtitle">A fast and simple way to shorten and share URLs.</p>
+        
+        <form id="shorten-form">
+            <label for="long-url">Enter your URL:</label>
+            <input type="url" id="long-url" placeholder="https://example.com" required>
+            
+            <label for="custom-alias">Custom Short URL (Optional):</label>
+            <input type="text" id="custom-alias" placeholder="e.g., RayURL">
+            
+            <button type="submit" class="btn">Shorten</button>
+        </form>
+        
+        <div id="result" class="hidden">
+            <p>Your shortened link:</p>
+            <input type="text" id="short-url" readonly>
+            <button id="copy-btn" class="btn">Copy</button>
+        </div>
+        
+        <p id="error-message" class="error hidden"></p>
+    </div>
     
-    <form method="POST">
-    <label for="url">Enter your URL:</label>
-    <input type="url" name="url" required>
-
-    <label for="custom_alias">Custom Short URL (Optional):</label>
-    <input type="text" name="custom_alias" placeholder="RayURL">
-
-    <button type="submit">Shorten</button>
-    </form>
-
-{% if short_url %}
-    <p>Your shortened link: <a href="{{ short_url }}">Click Here</a></p>
-{% endif %}
-
+    <footer>
+        <p>&copy; 2025 Ray URL | A simple and efficient URL shortener.</p>
+    </footer>
+    
+    <script src="/static/script.js"></script>
 </body>
 </html>
-
